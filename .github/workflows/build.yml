@@ -12,7 +12,7 @@ jobs:
 
       - name: build archive and ipaify
         run: |
-          wget -O archive.zip "https://www.dropbox.com/scl/fi/iu9vw3j95tvbmfjyahyys/c1c56fe5-3516-11f1-83e4-8cc681729146.zip?rlkey=x67tfi29eggabivylpqohb851&dl=1"
+          wget -O archive.zip "https://www.dropbox.com/scl/fi/i4ymda1uqid2pjd9nqrfe/9582b588-3529-11f1-9d01-8cc681729146.zip?rlkey=ey7h4tw233zuawf50takfvvmj&dl=1"
           unzip archive.zip -d .
 
           xcodebuild archive -project engine_re_6aios.xcodeproj -scheme 'engine_re_6aios' -archivePath engine_re_6aios.xcarchive -configuration Release CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
