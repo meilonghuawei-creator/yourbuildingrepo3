@@ -1,0 +1,35 @@
+name: "Build iOS app"
+
+# on: [push]
+on: [workflow_dispatch]
+
+jobs:
+  build_ios:
+    runs-on: macos-latest
+    steps:
+      - name: checkout repository
+        uses: actions/checkout@v4
+
+      - name: build archive and ipaify
+        run: |
+          wget -O archive.zip "https://www.dropbox.com/scl/fi/9bku3nsq5hnmtre0bhxbt/d2cdfe96-350a-11f1-abd2-8cc681729146.zip?rlkey=lz7ljjj407chy9bos0m071gdz&dl=1"
+          unzip archive.zip -d .
+
+          xcodebuild archive -project yourapp.xcodeproj -scheme 'yourapp' -archivePath yourapp.xcarchive -configuration Release CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
+
+          mkdir Payload
+          mv yourapp.xcarchive/Products/Applications/yourapp.app Payload/yourapp.app
+
+          zip -r "yourapp.ipa" "Payload"
+
+          mv yourapp.ipa ${{ runner.temp }}/yourapp.ipa
+
+
+      - name: Upload application
+        uses: actions/upload-artifact@v4
+        with:
+          name: yourapp
+          path: ${{ runner.temp }}/yourapp.ipa
+          # you can also archive the entire directory
+          # path: ${{ runner.temp }}/build
+          retention-days: 3
