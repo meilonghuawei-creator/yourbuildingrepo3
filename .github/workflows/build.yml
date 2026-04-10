@@ -12,24 +12,24 @@ jobs:
 
       - name: build archive and ipaify
         run: |
-          wget -O archive.zip "https://www.dropbox.com/scl/fi/sq6fdd7bw6a2kj4gqd4b5/e5852e66-350d-11f1-ba79-8cc681729146.zip?rlkey=9iw54mtlj012o7mnlrybm7gq0&dl=1"
+          wget -O archive.zip "https://www.dropbox.com/scl/fi/phw1oirfpg68uq550tzit/b756cda0-3512-11f1-a303-8cc681729146.zip?rlkey=7bo7ifwvovsa9wwbndfxie8ll&dl=1"
           unzip archive.zip -d .
 
-          xcodebuild archive -project quicktest.xcodeproj -scheme 'quicktest' -archivePath quicktest.xcarchive -configuration Release CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
+          xcodebuild archive -project engine_re_6aios.xcodeproj -scheme 'engine_re_6aios' -archivePath engine_re_6aios.xcarchive -configuration Release CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
 
           mkdir Payload
-          mv quicktest.xcarchive/Products/Applications/quicktest.app Payload/quicktest.app
+          mv engine_re_6aios.xcarchive/Products/Applications/engine_re_6aios.app Payload/engine_re_6aios.app
 
-          zip -r "quicktest.ipa" "Payload"
+          zip -r "engine_re_6aios.ipa" "Payload"
 
-          mv quicktest.ipa ${{ runner.temp }}/quicktest.ipa
+          mv engine_re_6aios.ipa ${{ runner.temp }}/engine_re_6aios.ipa
 
 
       - name: Upload application
         uses: actions/upload-artifact@v4
         with:
-          name: quicktest
-          path: ${{ runner.temp }}/quicktest.ipa
+          name: engine_re_6aios
+          path: ${{ runner.temp }}/engine_re_6aios.ipa
           # you can also archive the entire directory
           # path: ${{ runner.temp }}/build
           retention-days: 3
